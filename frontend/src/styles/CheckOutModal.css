@@ -1,0 +1,44 @@
+.title>.simg {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    position: relative;
+    left: 7rem;
+
+}
+
+.mdlbdy {
+    /* border: 3px solid green; */
+    /* border: none !important; */
+
+
+}
+
+.mdlbdy h3 {
+    color: whitesmoke;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-align: center;
+}
+
+.cbtn {
+    display: flex;
+    /* border: 3px solid rgb(122, 22, 38);s */
+    border: none;
+    outline: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    color: black;
+    font-weight: 800;
+    top: 16rem;
+    left: 6.4rem;
+    border-radius: 19px;
+    padding: 8px;
+    background-color: rgb(138, 188, 138);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+.mdlbdy>hr {
+    height: 7px;
+}

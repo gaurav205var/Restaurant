@@ -1,0 +1,45 @@
+[
+    {
+      "_id": "656b7708658f7dba8eff215d",
+      
+      "name": "Dosa",
+      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat, ab!",
+      "price": 200,
+      "__v": 0
+    },
+    {
+      "_id": "656b7752658f7dba8eff215f",
+      "name": "Chola",
+      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat, ab!",
+      "price": 250,
+      "__v": 0
+    },
+    {
+      "_id": "656b778e658f7dba8eff2162",
+      "name": "Idli Sambhar",
+      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat, ab!",
+      "price": 300,
+      "__v": 0
+    },
+    {
+      "_id": "656b77ce658f7dba8eff2164",
+      "name": "Masala Dosa",
+      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat, ab!",
+      "price": 100,
+      "__v": 0
+    },
+    {
+      "_id": "656b77e5658f7dba8eff2166",
+      "name": "Paneer",
+      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat, ab!",
+      "price": 400,
+      "__v": 0
+    },
+    {
+      "_id": "656b7800658f7dba8eff2168",
+      "name": "Gujrati",
+      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat, ab!",
+      "price": 500,
+      "__v": 0
+    }
+  ]
