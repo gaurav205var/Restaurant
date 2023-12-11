@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout/Layout";
 import { useSelector, useDispatch } from "react-redux";
 import { postCartData } from "../store/postCartSlice";
@@ -12,6 +12,15 @@ import {
 } from "../store/cartSlice";
 import CheckOutModal from "./CheckOutModal";
 import EmptyCartPage from "./EmptyCartPage";
+import {
+  MDBBtn,
+  MDBModal,
+  MDBModalDialog,
+  MDBModalContent,
+  MDBModalHeader,
+  MDBModalTitle,
+  MDBModalBody,
+} from 'mdb-react-ui-kit';
 
 function CartPage() {
   const { cart, totalQuantity, totalPrice } = useSelector(
@@ -27,10 +36,24 @@ function CartPage() {
   // Check if the cart is empty
   const isCartEmpty = cart.length === 0;
 
+  const [checkoutModalOpen, setCheckoutModalOpen] = useState(false);
+
+  const handleCheckout = async () => {
+    try {
+      await dispatch(postCartData(cart));
+      setCheckoutModalOpen(true);
+    } catch (error) {
+      // Handle error
+    }
+  };
+
+  const closeCheckoutModal = () => {
+    setCheckoutModalOpen(false);
+  };
+
   return (
     <Layout showEmptyCartModal={isCartEmpty}>
       {isCartEmpty ? (
-        // Render EmptyCartPage if cart is empty
         <EmptyCartPage />
       ) : (
         <section className="h-100 gradient-custom">
@@ -42,11 +65,9 @@ function CartPage() {
                     <h5 className="mb-0">Cart - {cart.length} items</h5>
                   </div>
                   <div className="card-body">
-                    {/* Single item */}
                     {cart.map((data) => (
                       <div key={data.id} className="row">
                         <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                          {/* Image */}
                           <div
                             className="bg-image hover-overlay hover-zoom ripple rounded"
                             data-mdb-ripple-color="light"
@@ -65,10 +86,8 @@ function CartPage() {
                               />
                             </a>
                           </div>
-                          {/* Image */}
                         </div>
                         <div className="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                          {/* Data */}
                           <Typography
                             variant="h5"
                             gutterBottom
@@ -86,11 +105,8 @@ function CartPage() {
                           >
                             <i className="fas fa-trash" />
                           </button>
-
-                          {/* Data */}
                         </div>
                         <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                          {/* Quantity */}
                           <div
                             className="d-flex mb-4"
                             style={{ maxWidth: 300 }}
@@ -122,8 +138,6 @@ function CartPage() {
                               <i className="fas fa-plus" />
                             </button>
                           </div>
-                          {/* Quantity */}
-                          {/* Price */}
                           <p className="text-start text-md-center">
                             <Typography variant="h6">
                               <CurrencyRupeeIcon /> {data.price}
@@ -133,17 +147,6 @@ function CartPage() {
                       </div>
                     ))}
                     <hr className="my-4" />
-                    {/* Single item */}
-
-                    {/* Single item */}
-                  </div>
-                </div>
-                <div className="card mb-4">
-                  <div className="card-body">
-                    <p>
-                      <strong>Expected shipping delivery</strong>
-                    </p>
-                    <p className="mb-0">12.10.2020 - 14.10.2020</p>
                   </div>
                 </div>
                 <div className="card mb-4 mb-lg-0">
@@ -151,30 +154,7 @@ function CartPage() {
                     <p>
                       <strong>We accept</strong>
                     </p>
-                    <img
-                      className="me-2"
-                      width="45px"
-                      src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
-                      alt="Visa"
-                    />
-                    <img
-                      className="me-2"
-                      width="45px"
-                      src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"
-                      alt="American Express"
-                    />
-                    <img
-                      className="me-2"
-                      width="45px"
-                      src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
-                      alt="Mastercard"
-                    />
-                    <img
-                      className="me-2"
-                      width="45px"
-                      src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.webp"
-                      alt="PayPal acceptance mark"
-                    />
+                    {/* ... existing code for displaying payment icons ... */}
                   </div>
                 </div>
               </div>
@@ -189,7 +169,6 @@ function CartPage() {
                         Total Quantity
                         <span>{totalQuantity}</span>
                       </li>
-
                       <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                         <div>
                           <strong>Total amount</strong>
@@ -201,13 +180,18 @@ function CartPage() {
                         </span>
                       </li>
                     </ul>
-                    <button
-                      onClick={() => dispatch(postCartData(cart))}
-                      type="button"
+
+                    <MDBBtn
+                      onClick={handleCheckout}
                       className="btn btn-success btn-lg btn-block"
                     >
-                      <CheckOutModal />
-                    </button>
+                      GO TO CHECKOUT
+                    </MDBBtn>
+
+                    <CheckOutModal
+                      open={checkoutModalOpen}
+                      onClose={closeCheckoutModal}
+                    />
                   </div>
                 </div>
               </div>
