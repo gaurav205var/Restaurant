@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
-
 //Register the user
 //@route POST/api/users/register
 const registerUser = asyncHandler(async (req, res) => {
@@ -69,7 +68,7 @@ const loginUser = asyncHandler(async (req, res) => {
       }
     );
     res.status(200).json({ accessToken });
-    console.log("token",accessToken);
+    // console.log("token", accessToken);
   } else {
     res.status(401);
     throw new Error("email or password is not valid");
@@ -83,6 +82,5 @@ const currentUser = asyncHandler(async (req, res) => {
 });
 
 //add
-
 
 module.exports = { registerUser, loginUser, currentUser };

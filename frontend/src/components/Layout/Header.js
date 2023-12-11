@@ -16,8 +16,20 @@ import { NavLink } from "react-router-dom";
 import "../../styles/HeaderStyles.css";
 import { useSelector, useDispatch } from "react-redux";
 import { getCartTotal } from "../../store/cartSlice";
+// import { useNavigate } from "react-router-dom";
+import { MDBBtn } from "mdb-react-ui-kit";
+import { logout } from "../../store/authSlice";
 
 const Header = () => {
+  // const navigate = useNavigate();
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    dispatch(logout());
+    // navigate("/login");
+  };
+
   const { cart, totalQuantity } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
@@ -59,9 +71,18 @@ const Header = () => {
         <li>
           <NavLink to={"/myorders"}>MyOrders</NavLink>
         </li>
-        <li>
-          <NavLink to={"/login"}>Login</NavLink>
-        </li>
+        {isAuthenticated ? (
+          <li>
+            <NavLink to={"/login"} onClick={handleLogout}>
+              Logout
+            </NavLink>
+          </li>
+        ) : (
+          <li>
+            <NavLink to={"/login"}>Login</NavLink>
+          </li>
+        )}
+
         <li>
           <NavLink to={"/cart"}>
             <Button
@@ -123,9 +144,17 @@ const Header = () => {
                 <li>
                   <NavLink to={"/myorders"}>MyOrders</NavLink>
                 </li>
-                <li>
-                  <NavLink to={"/login"}>Login</NavLink>
-                </li>
+                {isAuthenticated ? (
+                  <li>
+                    <NavLink to={"/login"} onClick={handleLogout}>
+                      Logout
+                    </NavLink>
+                  </li>
+                ) : (
+                  <li>
+                    <NavLink to={"/login"}>Login</NavLink>
+                  </li>
+                )}
                 <li>
                   <NavLink to={"/cart"}>
                     <Button

@@ -10,7 +10,7 @@ const MyOrders = () => {
   const order = useSelector((state) => {
     return state.order;
   });
-  console.log("state...", order.orders);
+  console.log("orders in Myorder", order.orders);
   const navigate = useNavigate();
   const trackHandler = () => {
     navigate("/tracking");

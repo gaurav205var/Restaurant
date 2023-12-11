@@ -12,7 +12,7 @@ import {
 } from "mdb-react-ui-kit";
 import Layout from "../components/Layout/Layout";
 import { useDispatch } from "react-redux";
-import { userSignUp, userLoginData } from "../store/authSlice";
+import { userSignUp, userLoginData, login } from "../store/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const AuthPage = () => {
@@ -39,6 +39,7 @@ const AuthPage = () => {
     //isRegistering false
     if (!isRegistering) {
       dispatch(userLoginData(loginData));
+      dispatch(login());
       console.log("logindata", loginData);
       if (email || password) {
         navigate("/");

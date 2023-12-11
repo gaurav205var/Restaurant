@@ -37,8 +37,7 @@ export const userLoginData = createAsyncThunk(
     })
       .then((response) => response.json(loginData))
       .then((data) => {
-        // Handle the data from the server
-        console.log("Success:", data);
+        return data;
       })
       .catch((error) => {
         // Handle errors
@@ -47,11 +46,11 @@ export const userLoginData = createAsyncThunk(
   }
 );
 
-
 // Create a slice
 export const authSlice = createSlice({
   name: "authSlice",
   initialState: {
+    isAuthenticated:false,
     user: "",
     token: "",
     loading: false,
@@ -59,17 +58,27 @@ export const authSlice = createSlice({
     isSuccess: "",
   },
   reducers: {
-    addToken: (state, action) => {
-      state.token = localStorage.getItem("token");
+    login: (state, action) => {
+      state.isAuthenticated = true;
+      state.user = action.payload;
     },
-    addUser: (state, action) => {
-      state.user = localStorage.getItem("user");
-    },
-    logout: (state, action) => {
-      state.token = null;
-      localStorage.clear();
+    logout: (state) => {
+      state.isAuthenticated = false;
+      state.user = null;
     },
   },
+  // reducers: {
+  //   addToken: (state, action) => {
+  //     state.token = localStorage.getItem("token");
+  //   },
+  //   addUser: (state, action) => {
+  //     state.user = localStorage.getItem("user");
+  //   },
+  //   logout: (state, action) => {
+  //     state.token = null;
+  //     localStorage.clear();
+  //   },
+  // },
   extraReducers: {
     //signup
     [userSignUp.pending]: (state, action) => {
@@ -89,13 +98,13 @@ export const authSlice = createSlice({
       state.loading = true;
     },
     [userLoginData.fulfilled]: (state, { payload: accessToken }) => {
-      console.log("token in local", typeof(accessToken));
+      console.log("token in local", accessToken);
       state.loading = false;
       state.token = accessToken;
       // state.user = user;ons
 
-      localStorage.setItem("token", accessToken);
-      // localStorage.setItem("user", JSON.stringify(user));
+      // localStorage.setItem("token", accessToken);
+      localStorage.setItem("token", JSON.stringify(accessToken));
     },
   },
   [userLoginData.pending]: (state, action) => {
@@ -104,5 +113,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { addToken, addUser, logout } = authSlice.actions;
+export const { login, logout } = authSlice.actions;
 export default authSlice.reducer;

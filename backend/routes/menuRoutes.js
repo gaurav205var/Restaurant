@@ -6,11 +6,11 @@ const validateToken = require("../middleware/validateTokenHandler");
 router.get("/",getMenu);
 // router.route("/").get(getMenu);
 
-//public access for storing data
-router.route("/").post(store);
+// //public access for storing data
+// router.route("/").post(store);
 
 //private access
-// router.post("/",validateToken,store);
+router.post("/",validateToken,store);
 
 router.route("/:id").delete(deleteMenu);
 

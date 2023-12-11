@@ -60,7 +60,9 @@ export const cartSlice = createSlice({
     decreaseQuantity: (state, action) => {
       state.cart = state.cart.map((item) => {
         if (item._id === action.payload._id) {
-          return { ...item, quantity: item.quantity - 1 };
+          // Ensure quantity is greater than 1 before decrementing
+          const newQuantity = Math.max(1, item.quantity - 1);
+          return { ...item, quantity: newQuantity };
         }
         return item;
       });

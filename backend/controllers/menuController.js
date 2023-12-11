@@ -1,6 +1,8 @@
 const asyncHandler = require("express-async-handler");
 const Menu = require("../models/menuModal");
 const Cart = require("../models/cartData");
+// const sessionData = require("./userController")
+
 
 const getMenu = asyncHandler(async (req, res) => {
   const menu = await Menu.find();
@@ -11,16 +13,18 @@ const getMenu = asyncHandler(async (req, res) => {
 const store = asyncHandler(async (req, res) => {
   // console.log("The Request body id:", req.body);
   const [{ name, description, price, image }] = req.body;
-  console.log("data",typeof(name));
+  const UserId = req.session.user.id;
+  console.log("sessionId",UserId);
+  // console.log("data",typeof(name));
   const cartData = await Cart.create({
-    // customerId:req.user._id,
+    user_id:UserId,
     name,
     description,
     price,
     image,
   });
   res.status(201).json(cartData);
-  console.log("backend",cartData);
+  console.log("orderdata",cartData);
 });
 
 const deleteMenu = asyncHandler(async (req,res)=>{
